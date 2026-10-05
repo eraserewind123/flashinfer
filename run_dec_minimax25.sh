@@ -6,7 +6,7 @@ python benchmarks/bench_trtllm_gen_fused_moe_autotuner.py \
   --local-num-experts 128 \
   --num-tokens 4096 \
   --hidden-size 3072 \
-  --intermediate-size 768 \
+  --intermediate-size 384 \
   --top-k 1 \
   --no-use-bias
 
