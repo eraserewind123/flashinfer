@@ -50,6 +50,24 @@ requires = ["setuptools>=77", "packaging>=24", "apache-tvm-ffi>=0.1.11,<0.2"]
 build-backend = "build_backend"
 backend-path = ["."]
 
+# Local/dev installs with uv (CUDA 13 / B300). The package still declares
+# dependencies dynamically from requirements.txt; use:
+#   BUILD_NVEP=0 uv pip install --no-build-isolation -e ".[cu13]"
+# rather than `uv sync` (dynamic deps are not lockable).
+[tool.uv]
+no-build-isolation-package = ["flashinfer-python"]
+package = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu130", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
 [tool.codespell]
 ignore-words-list = "3nd"
 skip = ["build", "3rdparty", "dist", ".venv"]
